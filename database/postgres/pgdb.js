@@ -4,6 +4,7 @@ const { orderedFor, slug } = require('../../lib/util');
 module.exports = pgPool => {
   return {
     getUsersByIds(userIds) {
+      // ANY clause recebe um array
       return pgPool.query(`
         select * from users
         where id = ANY($1)
