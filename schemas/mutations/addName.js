@@ -5,8 +5,8 @@ const {
   GraphQLID,
 } = require('graphql');
 
-const pgdb = require('../../database/pgdb');
-const NameType = require('../types/ContestName');
+const pgdb = require('../../database/postgres/pgdb');
+const NameType = require('../types/NameForContest');
 
 const NameInputType = new GraphQLInputObjectType({
   name: 'NameInput',

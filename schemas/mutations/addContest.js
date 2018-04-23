@@ -4,7 +4,7 @@ const {
   GraphQLInputObjectType,
 } = require('graphql');
 
-const pgdb = require('./../../database/pgdb');
+const pgdb = require('./../../database/postgres/pgdb');
 const Contest = require('./../types/Contest');
 
 const ContestInput = new GraphQLInputObjectType({

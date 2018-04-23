@@ -7,61 +7,78 @@ const {
   GraphQLInt,
 } = require('graphql');
 
-const Contest = require('./Contest');
-
 module.exports = new GraphQLObjectType({
   name: 'User',
-  fields: {
-    id: {
-      description: 'ID do usuário',
-      type: GraphQLID,
-    },
-    email: {
-      description: 'Email do usuário',
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    firstName: {
-      description: 'Primeiro nome do usuário',
-      type: GraphQLString,
-    },
-    lastName: {
-      description: 'Primeiro nome do usuário',
-      type: GraphQLString,
-    },
-    fullName: {
-      type: GraphQLString,
-      resolve: ({ firstName, lastName }) => `${firstName} ${lastName}`,
-    },
-    createdAt: {
-      description: 'Quando usuário foi criado',
-      type: GraphQLString,
-    },
-    contests: {
-      type: new GraphQLList(Contest),
-      resolve(obj, args, context) {
-        return context.loaders.contestsForUserIds.load(obj.id)
+  fields: () => {
+    const ContestType = require('./Contest');
+    const ActivityType = require('./Activity');
+
+    return {
+      id: {
+        description: 'ID do usuário',
+        type: GraphQLID,
       },
-    },
-    contestsCount: {
-      type: GraphQLInt,
-      resolve(obj, args, { loaders }, { fieldName }) {
-        return loaders.mongodb.usersByIds.load(obj.id)
-          .then(res => res[fieldName]);
+      email: {
+        description: 'Email do usuário',
+        type: new GraphQLNonNull(GraphQLString),
       },
-    },
-    namesCount: {
-      type: GraphQLInt,
-      resolve(obj, args, { loaders }, { fieldName }) {
-        return loaders.mongodb.usersByIds.load(obj.id)
-          .then(res => res[fieldName]);
+      firstName: {
+        description: 'Primeiro nome do usuário',
+        type: GraphQLString,
       },
-    },
-    votesCount: {
-      type: GraphQLInt,
-      resolve(obj, args, { loaders }, { fieldName }) {
-        return loaders.mongodb.usersByIds.load(obj.id)
-          .then(res => res[fieldName]);
+      lastName: {
+        description: 'Último nome do usuário',
+        type: GraphQLString,
       },
-    },
+      fullName: {
+        description: 'Nome completo',
+        type: GraphQLString,
+        resolve: ({ firstName, lastName }) => `${firstName} ${lastName}`,
+      },
+      createdAt: {
+        description: 'Quando usuário foi criado',
+        type: GraphQLString,
+      },
+      contests: {
+        type: new GraphQLList(ContestType),
+        resolve(obj, args, { loaders }) {
+          return loaders.contestsForUserIds.load(obj.id);
+        },
+      },
+      contestsCount: {
+        type: GraphQLInt,
+        description: 'Quantidade de contests criados',
+        resolve(obj, args, { loaders }, { fieldName }) {
+          return loaders.mongodb.usersByIds
+            .load(obj.id)
+            .then(res => res[fieldName]);
+        },
+      },
+      namesCount: {
+        type: GraphQLInt,
+        description: 'Quantidade de nomes criados',
+        resolve(obj, args, { loaders }, { fieldName }) {
+          return loaders.mongodb.usersByIds
+            .load(obj.id)
+            .then(res => res[fieldName]);
+        },
+      },
+      votesCount: {
+        type: GraphQLInt,
+        description: 'Número de votos do usuário',
+        resolve(obj, args, { loaders }, { fieldName }) {
+          return loaders.mongodb.usersByIds
+            .load(obj.id)
+            .then(res => res[fieldName]);
+        },
+      },
+      activities: {
+        type: new GraphQLList(ActivityType),
+        description: 'Pode ser uma atividade de criação de contests ou de Nomes criativos para contests',
+        resolve(obj, args, { loaders }) {
+          return loaders.activitiesForUserIds.load(obj.id);
+        },
+      },
+    };
   },
 });

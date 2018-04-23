@@ -5,17 +5,17 @@ const {
   GraphQLNonNull,
 } = require('graphql');
 
-const ContestTotalVotes = require('./ContestTotalVotes');
-
 module.exports = new GraphQLObjectType({
-  name: 'ContestName',
+  name: 'NameForContest',
   /*
-  Ao tornar fields uma função, ela não via ser executada
+  Ao tornar fields uma função, ela não vai ser executada
   imediatamente quando User rodar,
   E por isso não vai causar o problema de "Cyclic Module Dependency"
   */
   fields: () => {
-    const User = require('./User');
+    const UserType = require('./User');
+    const ContestTotalVotesType = require('./ContestTotalVotes');
+
     return {
       id: {
         type: GraphQLID,
@@ -30,17 +30,17 @@ module.exports = new GraphQLObjectType({
         type: new GraphQLNonNull(GraphQLString),
       },
       createdBy: {
-        type: new GraphQLNonNull(User),
+        type: new GraphQLNonNull(UserType),
         resolve(obj, args, { loaders }) {
           return loaders.usersByIds.load(obj.createdBy);
         },
       },
       totalVotes: {
-        type: ContestTotalVotes,
+        type: ContestTotalVotesType,
         resolve(obj, args, { loaders }) {
-          return loaders.totalVotesByNameIds.load(obj.id)
-        }
-      }
+          return loaders.totalVotesByNameIds.load(obj.id);
+        },
+      },
     };
   },
 });

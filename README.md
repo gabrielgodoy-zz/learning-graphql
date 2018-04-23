@@ -55,10 +55,10 @@ GraphQL que se comunica com dois bancos diferentes para a entrega de dados ao cl
 
 ### Postgres
 #### Tabelas
-- `contests`: São criados Contests para receber propostas de nomes para produtos
-- `names`: Nomes criativos para os produtos genéricos listados em cada Contest
+- `contests`: São criados Contests para receber propostas de nomes criativos para produtos genéricos
+- `names`: Propostas de nomes criativos para os produtos genéricos de cada Contest
 - `users`: Usuários que criam Contests, e votam em nomes que foram propostos
-- `votes`: Quantidade de votos para cada nome criativo que foi proposto
+- `votes`: Votos para cada nome criativo que foi proposto, e quem votou
 
 #### Definição da Estrutura no Postgres (UML)
 ![postgres UML](./postgres-uml.png)

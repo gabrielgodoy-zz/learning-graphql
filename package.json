@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node lib/index",
     "dev": "nodemon --exec node lib/index",
-    "start_postgres": "createdb \"contests\"; psql contests < database/load-pg-data.sql",
-    "start_mongodb": "node database/load-mongo-data.js",
+    "start_postgres": "createdb \"contests\"; psql contests < database/postgres/load-pg-data.sql",
+    "start_mongodb": "node database/mongodb/load-mongo-data.js",
     "start_dbs": "npm run start_mongodb; npm run start_postgres;"
   },
   "repository": {

@@ -1,4 +1,4 @@
-const { orderedFor } = require('../lib/util');
+const { orderedFor } = require('../../lib/util');
 
 module.exports = mongoPool => {
   return {
