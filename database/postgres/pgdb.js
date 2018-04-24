@@ -58,7 +58,7 @@ module.exports = pgPool => {
     },
 
     /* 
-      Na tabela contests não tem label, então cria-se um label fake vazio ''
+      Na tabela "contests" não tem label, então cria-se um label fake vazio ''
       Na tabela names não tem title, então cria-se um title fake vazio ''
     */
     getActivitiesForUserIds(userIds) {

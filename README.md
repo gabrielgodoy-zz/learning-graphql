@@ -35,10 +35,10 @@ Implementação do GraphQL em JS
 Servidor HTTP para nodeJS
 
 ### [express-graphql](https://github.com/graphql/express-graphql)
-Facilita a criação e um servidor GraphQL com Express
+Facilita a criação de um servidor GraphQL com Express
 
 ### [humps](https://github.com/domchristie/humps)
-Converte Underscore-to-camelCase
+Converte dados de underscore para camelCase
 
 ---
 

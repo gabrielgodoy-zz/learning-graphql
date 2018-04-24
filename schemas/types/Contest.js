@@ -33,8 +33,8 @@ module.exports = new GraphQLObjectType({
       },
       names: {
         type: new GraphQLList(NameForContestType),
-        resolve(obj, args, { loaders }) {
-          return loaders.namesForContestIds.load(obj.id);
+        resolve(parentObject, args, { loaders }) {
+          return loaders.namesForContestIds.load(parentObject.id);
         },
       },
     };

@@ -41,42 +41,42 @@ module.exports = new GraphQLObjectType({
       },
       contests: {
         type: new GraphQLList(ContestType),
-        resolve(obj, args, { loaders }) {
-          return loaders.contestsForUserIds.load(obj.id);
+        resolve(parentObject, args, { loaders }) {
+          return loaders.contestsForUserIds.load(parentObject.id);
         },
       },
       contestsCount: {
         type: GraphQLInt,
         description: 'Quantidade de contests criados',
-        resolve(obj, args, { loaders }, { fieldName }) {
+        resolve(parentObject, args, { loaders }, { fieldName }) {
           return loaders.mongodb.usersByIds
-            .load(obj.id)
+            .load(parentObject.id)
             .then(res => res[fieldName]);
         },
       },
       namesCount: {
         type: GraphQLInt,
         description: 'Quantidade de nomes criados',
-        resolve(obj, args, { loaders }, { fieldName }) {
+        resolve(parentObject, args, { loaders }, { fieldName }) {
           return loaders.mongodb.usersByIds
-            .load(obj.id)
+            .load(parentObject.id)
             .then(res => res[fieldName]);
         },
       },
       votesCount: {
         type: GraphQLInt,
         description: 'Número de votos do usuário',
-        resolve(obj, args, { loaders }, { fieldName }) {
+        resolve(parentObject, args, { loaders }, { fieldName }) {
           return loaders.mongodb.usersByIds
-            .load(obj.id)
+            .load(parentObject.id)
             .then(res => res[fieldName]);
         },
       },
       activities: {
         type: new GraphQLList(ActivityType),
         description: 'Pode ser uma atividade de criação de contests ou de Nomes criativos para contests',
-        resolve(obj, args, { loaders }) {
-          return loaders.activitiesForUserIds.load(obj.id);
+        resolve(parentObject, args, { loaders }) {
+          return loaders.activitiesForUserIds.load(parentObject.id);
         },
       },
     };

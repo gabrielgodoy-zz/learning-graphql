@@ -31,14 +31,14 @@ module.exports = new GraphQLObjectType({
       },
       createdBy: {
         type: new GraphQLNonNull(UserType),
-        resolve(obj, args, { loaders }) {
-          return loaders.usersByIds.load(obj.createdBy);
+        resolve(parentObject, args, { loaders }) {
+          return loaders.usersByIds.load(parentObject.createdBy);
         },
       },
       totalVotes: {
         type: ContestTotalVotesType,
-        resolve(obj, args, { loaders }) {
-          return loaders.totalVotesByNameIds.load(obj.id);
+        resolve(parentObject, args, { loaders }) {
+          return loaders.totalVotesByNameIds.load(parentObject.id);
         },
       },
     };

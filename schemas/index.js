@@ -25,7 +25,7 @@ const RootQueryType = new GraphQLObjectType({
       },
       description: 'Recebe uma *chave de API* e entrega informações do usuário',
       type: User,
-      resolve: (obj, args, { loaders }) => {
+      resolve: (parentObject, args, { loaders }) => {
         // Lê informação do usuário no banco
         return loaders.usersByApiKeys.load(args.apiKey);
       },
@@ -44,9 +44,9 @@ const RootMutationType = new GraphQLObjectType({
   }),
 });
 
-const ncSchema = new GraphQLSchema({
+const appSchema = new GraphQLSchema({
   query: RootQueryType,
   mutation: RootMutationType,
 });
 
-module.exports = ncSchema;
+module.exports = appSchema;
